@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             SizedBox(height: 20),
             Expanded(
-              flex: 2,
+              flex: 1,
               child: Container(
                   child: GridView.count(
                 crossAxisCount: 3,

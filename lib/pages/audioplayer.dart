@@ -55,12 +55,12 @@ class _AudioPlayerPageState extends State<AudioPlayerPage> {
             SizedBox(height: 30),
             Row(
               children: [
-                SizedBox(width: 100),
+                SizedBox(width: 50),
                 CircleAvatar(
                   backgroundImage: AssetImage('assets/music6.jpg'),
                   radius: 120,
                 ),
-                SizedBox(width: 40),
+                SizedBox(width: 10),
                 Column(
                   children: [
                     IconButton(
@@ -113,7 +113,7 @@ class _AudioPlayerPageState extends State<AudioPlayerPage> {
                 ),
               ],
             ),
-            SizedBox(height: 50),
+            SizedBox(height: 80),
             Container(
               child: StreamBuilder(
                   stream: assetsAudioPlayer.realtimePlayingInfos,

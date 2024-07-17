@@ -1,5 +1,8 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:advan_lab1/pages/allmusic.dart';
+import 'package:advan_lab1/widget/musicitem.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,144 +12,92 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final assetsAudioPlayer = AssetsAudioPlayer();
-
-  @override
-  void initState() {
-    initplyer();
-    super.initState();
-  }
-
-  void initplyer() async {
-    await assetsAudioPlayer.open(
-        Playlist(audios: [
-          Audio('assets/song1.mp3', metas: Metas(title: "Song 1")),
-          Audio('assets/song2.mp3', metas: Metas(title: "Song 2")),
-          Audio('assets/song3.mp3', metas: Metas(title: "Song 3")),
-        ]),
-        autoStart: false);
-
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home"),
+        title: Text('Music'),
       ),
-      body: Center(
+      body: Container(
+        padding: EdgeInsetsDirectional.all(5),
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/music3.jpg"), fit: BoxFit.fill)),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Color.fromARGB(255, 16, 3, 139),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              height: 400,
-              width: 400,
-              child: StreamBuilder(
-                  stream: assetsAudioPlayer.realtimePlayingInfos,
-                  builder: (context, snapShots) {
-                    if (snapShots.connectionState == ConnectionState.waiting) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+            SizedBox(height: 20),
+            Expanded(
+              flex: 2,
+              child: Container(
+                  child: GridView.count(
+                crossAxisCount: 3,
+                mainAxisSpacing: 5,
+                crossAxisSpacing: 5,
+                children: [
+                  MusicCard(
+                    color: Color.fromARGB(255, 25, 1, 90).withOpacity(.8),
+                    icon: Icons.music_note_outlined,
+                    label: 'All Music',
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (ctx) => AllMusicPage()));
+                    },
+                  ),
+                  MusicCard(
+                    color: Color.fromARGB(255, 104, 2, 49).withOpacity(.8),
+                    icon: Icons.playlist_play,
+                    label: 'Playlist',
+                    onPressed: () {},
+                  ),
+                  MusicCard(
+                    color: Color.fromARGB(255, 168, 13, 2).withOpacity(.8),
+                    icon: Icons.favorite,
+                    label: 'Favorites',
+                    onPressed: () {},
+                  ),
+                  MusicCard(
+                    color: Color.fromARGB(255, 158, 95, 2).withOpacity(.8),
+                    icon: Icons.folder,
+                    label: 'Folders',
+                    onPressed: () {},
+                  ),
+                ],
+              )),
+            ),
+            SizedBox(height: 5),
+            Expanded(
+              child: Container(
+                color: Color.fromARGB(0, 14, 1, 71).withOpacity(.6),
+                child: Column(
+                  //crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      child: Row(
                         children: [
+                          Icon(
+                            Icons.queue_music,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                          SizedBox(width: 5),
                           Text(
-                            assetsAudioPlayer.getCurrentAudioTitle == " "
-                                ? 'Please play your song'
-                                : assetsAudioPlayer.getCurrentAudioTitle,
+                            'Recent Play',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.w600),
                           ),
-                          SizedBox(height: 25),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              IconButton(
-                                onPressed: snapShots.data?.current?.index == 0
-                                    ? null
-                                    : () {
-                                        assetsAudioPlayer.previous();
-                                      },
-                                icon: Icon(Icons.skip_previous),
-                              ),
-                              getBtnWidget,
-                              IconButton(
-                                onPressed: snapShots.data?.current?.index ==
-                                        (assetsAudioPlayer
-                                                    .playlist?.audios.length ??
-                                                0) -
-                                            1
-                                    ? null
-                                    : () {
-                                        assetsAudioPlayer.next();
-                                      },
-                                icon: Icon(Icons.skip_next),
-                              ),
-                            ],
-                          ),
-                          Slider(
-                              value: snapShots.data?.currentPosition.inSeconds
-                                      .toDouble() ??
-                                  0,
-                              min: 0,
-                              max: snapShots.data?.duration.inSeconds
-                                      .toDouble() ??
-                                  0,
-                              onChanged: (value) {}),
-                          SizedBox(height: 20),
-                          Text(
-                            " ${convertSecond(snapShots.data?.currentPosition.inSeconds ?? 0)} / ${convertSecond(snapShots.data?.duration.inSeconds ?? 0)}",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold),
-                          )
                         ],
                       ),
-                    );
-                  }),
+                    ),
+                  ],
+                ),
+              ),
             )
           ],
         ),
       ),
     );
   }
-
-  String convertSecond(int second) {
-    String minutes = (second ~/ 60).toString();
-    String secondsStr = (second % 60).toString();
-    return '${minutes.padLeft(2, '0')} : ${secondsStr.padLeft(2, '0')}';
-  }
-
-  Widget get getBtnWidget =>
-      assetsAudioPlayer.builderIsPlaying(builder: (ctx, isPlaying) {
-        return FloatingActionButton.large(
-          child: Icon(
-            color: Colors.white,
-            size: 70,
-            isPlaying ? Icons.pause : Icons.play_arrow,
-          ),
-          onPressed: () {
-            if (isPlaying) {
-              assetsAudioPlayer.pause();
-            } else {
-              assetsAudioPlayer.play();
-            }
-
-            setState(() {});
-          },
-          shape: CircleBorder(),
-        );
-      });
 }

@@ -55,7 +55,7 @@ class _AudioPlayerPageState extends State<AudioPlayerPage> {
             SizedBox(height: 30),
             Row(
               children: [
-                SizedBox(width: 120),
+                SizedBox(width: 100),
                 CircleAvatar(
                   backgroundImage: AssetImage('assets/music6.jpg'),
                   radius: 120,
@@ -65,8 +65,8 @@ class _AudioPlayerPageState extends State<AudioPlayerPage> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        setState(() {});
                         selectSpeed();
+                        setState(() {});
                       },
                       icon: Icon(
                         Icons.speed,
@@ -79,8 +79,8 @@ class _AudioPlayerPageState extends State<AudioPlayerPage> {
                     ),
                     IconButton(
                       onPressed: () {
-                        setState(() {});
                         selectVolume();
+                        setState(() {});
                       },
                       icon: Icon(
                         icon,
@@ -342,18 +342,18 @@ class _AudioPlayerPageState extends State<AudioPlayerPage> {
                           child: Text('0x')),
                       TextButton(
                           onPressed: () {
+                            changeVolume = .5;
+                            icon = Icons.volume_up;
+                            setStateEx(() {});
+                          },
+                          child: Text('.5x')),
+                      TextButton(
+                          onPressed: () {
                             changeVolume = 1;
                             icon = Icons.volume_up;
                             setStateEx(() {});
                           },
                           child: Text('1x')),
-                      TextButton(
-                          onPressed: () {
-                            changeVolume = 2;
-                            icon = Icons.volume_up;
-                            setStateEx(() {});
-                          },
-                          child: Text('2x')),
                       SizedBox(height: 30),
                       TextButton(
                           onPressed: () {

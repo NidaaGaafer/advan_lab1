@@ -30,7 +30,7 @@ class _AllMusicPageState extends State<AllMusicPage> {
                 trailing: IconButton(
                     onPressed: () {},
                     icon: Icon(Icons.more_horiz, color: Colors.white)),
-                title: TextButton(
+                leading: TextButton(
                     onPressed: () {
                       Navigator.push(
                           context,

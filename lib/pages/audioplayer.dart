@@ -266,7 +266,7 @@ class _AudioPlayerPageState extends State<AudioPlayerPage> {
           return Dialog(
               backgroundColor: Colors.black,
               child: Container(
-                height: 200,
+                height: 300,
                 width: 200,
                 child: Column(
                   children: [
@@ -282,20 +282,31 @@ class _AudioPlayerPageState extends State<AudioPlayerPage> {
                           changeSpeed = 1;
                           //setStateEx(() {});
                         },
-                        child: Text('1x')),
+                        child: Text('1x',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ))),
                     TextButton(
                         onPressed: () {
                           changeSpeed = 2;
 
                           //setStateEx(() {});
                         },
-                        child: Text('2x')),
+                        child: Text('2x',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ))),
                     TextButton(
                         onPressed: () {
                           changeSpeed = 3;
                           //setStateEx(() {});
                         },
-                        child: Text('3x')),
+                        child: Text(
+                          '3x',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        )),
                     SizedBox(height: 30),
                     TextButton(
                         onPressed: () {
@@ -322,7 +333,7 @@ class _AudioPlayerPageState extends State<AudioPlayerPage> {
             return Dialog(
                 backgroundColor: Colors.black,
                 child: Container(
-                  height: 200,
+                  height: 300,
                   width: 200,
                   child: Column(
                     children: [
@@ -339,21 +350,30 @@ class _AudioPlayerPageState extends State<AudioPlayerPage> {
                             icon = Icons.volume_off;
                             setStateEx(() {});
                           },
-                          child: Text('0x')),
+                          child: Text('0x',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ))),
                       TextButton(
                           onPressed: () {
                             changeVolume = .5;
                             icon = Icons.volume_up;
                             setStateEx(() {});
                           },
-                          child: Text('.5x')),
+                          child: Text('.5x',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ))),
                       TextButton(
                           onPressed: () {
                             changeVolume = 1;
                             icon = Icons.volume_up;
                             setStateEx(() {});
                           },
-                          child: Text('1x')),
+                          child: Text('1x',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ))),
                       SizedBox(height: 30),
                       TextButton(
                           onPressed: () {
